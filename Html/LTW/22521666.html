@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<style>
+    #container {
+        width: 400px;
+        height: 400px;
+        position: relative;
+        background: yellow;
+    }
+
+    #animate {
+        width: 50px;
+        height: 50px;
+        position: absolute;
+        background-color: red;
+    }
+</style>
+
+<body>
+
+    <p><button onclick="myMove()">Click Me</button></p>
+
+    <div id="container">
+        <div id="animate"></div>
+    </div>
+
+    <script>
+        function myMove() {
+            let id = null;
+            const elem = document.getElementById("animate");
+            let pos = 0;
+            let posX = 0;
+            let posY = 0;
+            let xDirection = 10; // Chỉnh hướng đi theo X
+            let yDirection = 1; // Chỉnh hướng đi theo Y
+
+            clearInterval(id);
+
+            id = setInterval(frame, 5);
+
+            function frame() {
+                if (posX >= 350 && posY != 350) {
+                    xDirection = -xDirection;
+                } else if (posX <= 0 && posY != 350 && posY != 0) {
+                    xDirection = -xDirection;
+                } else if (posX >= 350)
+                    xDirection = -xDirection;
+                else if (posX <= 0 && posY != 0)
+                    xDirection = -xDirection;
+
+                if (posY >= 350 && posX != 350) {
+                    yDirection = -yDirection;
+                } else if (posY <= 0 && posX != 350 && posX != 0) {
+                    yDirection = -yDirection;
+                } else if (posY >= 350)
+                    yDirection = -yDirection;
+                else if (posY <= 0 && posX != 0)
+                    yDirection = -yDirection;
+
+                posX += xDirection;
+                posY += yDirection;
+                pos = posX + posY;
+
+                elem.style.top = posY + 'px';
+                elem.style.left = posX + 'px';
+
+                if (pos == 0 && xDirection < 0 && yDirection < 0) {
+                    clearInterval(id);
+                }
+            }
+
+            const container = document.getElementById("container");
+        }
+    </script>
+
+</body>
+
+</html>
